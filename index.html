@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Rubik&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/materialize.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -13,29 +15,37 @@
 <body>
 
     <div class="container">
+
+        <div class="row ">
+            <div class="col s12" id="jumbotron">
+                <div class="card-panel center-align teal lighten-3">
+                    <h1>
+                        Flightplan
+                    </h1>
+                    <h5>Search, see available flights, see what you can do</h5>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">i</i>
+                        <i class="material-icons prefix">map</i>
                         <input type="text" id="location-input" class="autocomplete">
                         <label for="location-input">Location</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Email</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
+                        <i class="material-icons prefix">date_range</i>
                         <input type="text" class="datepicker">
                         <label for="start-input">Start Date</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="material-icons prefix">date_range</i>
                         <input type="text" class="datepicker">
                         <label for="End-input">End Date</label>
                     </div>
