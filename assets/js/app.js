@@ -1,6 +1,7 @@
 var events = [];
 var pageNo = 1;
 var pageCount;
+//All available categories from Eventbrite's API.
 var categories = {
     101: "Business & Professional",
     102: "Science & Technology",
@@ -25,6 +26,24 @@ var categories = {
     199: "Other"
 };
 
+//Dynamically add filter categories to Filter Dropdown.
+$("#filter").empty();
+for (x in categories) {
+    var newOpt = $("<option>");
+    newOpt.val(x)
+        .text(categories[x])
+    $("#filter").append(newOpt);
+}
+
+//On Selection of Filters, hide all rows, then only show rows containing the selected categories.
+$("#filter").on("change", function() {
+    $("#events").find("tr").hide();
+    var cats = $(this).val();
+    for (x in cats) {
+        console.log(x);
+        $("#events").find(`tr > td[data-category='${cats[x]}']`).parent().show();
+    }
+});
 
 // api call function 
 function eventbriteAPI(destination, startDate, endDate) {
@@ -60,8 +79,8 @@ function eventbriteAPI(destination, startDate, endDate) {
                 eventbriteAPI(destination, startDate, endDate)
             }
         }
-    }).then(function() {
-        $("#events").empty();
+    }).then(function() { //Additional Then for after the events array is complete.
+        $("#events").empty(); //Empty the Events table.
         for (x in events) { //For each element in events array.
             var data = events[x]; //Set data to current element interval.
             var newTR = $("<tr>");
