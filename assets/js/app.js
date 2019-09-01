@@ -37,11 +37,17 @@ for (x in categories) {
 
 //On Selection of Filters, hide all rows, then only show rows containing the selected categories.
 $("#filter").on("change", function() {
-    $("#events").find("tr").hide();
     var cats = $(this).val();
-    for (x in cats) {
-        console.log(x);
-        $("#events").find(`tr > td[data-category='${cats[x]}']`).parent().show();
+    console.log(cats);
+    if (cats.length === 0) {
+        $("#events").find("tr").show();
+        return false;
+    } else {
+        $("#events").find("tr").hide();
+        for (x in cats) {
+            console.log(x);
+            $("#events").find(`tr > td[data-category='${cats[x]}']`).parent().show();
+        }
     }
 });
 
@@ -83,6 +89,9 @@ function eventbriteAPI(destination, startDate, endDate) {
         $("#events").empty(); //Empty the Events table.
         for (x in events) { //For each element in events array.
             var data = events[x]; //Set data to current element interval.
+            var eventDesc;
+            if (data.summary === null) //If event does not have a summary, skip it.
+                continue;
             var newTR = $("<tr>");
             newTR.append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
                 .append(`<td data-category='${data.category_id}'>${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
