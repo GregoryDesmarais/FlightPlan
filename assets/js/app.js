@@ -23,7 +23,8 @@ var categories = {
     118: "Auto, Boat & Air",
     119: "Hobbies & Special Interest",
     120: "School Activities",
-    199: "Other"
+    199: "Other",
+    null: "None"
 };
 
 //Dynamically add filter categories to Filter Dropdown.
