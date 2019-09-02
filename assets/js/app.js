@@ -91,7 +91,8 @@ function eventbriteAPI(destination, startDate, endDate) {
             if (data.summary === null) //If event does not have a summary, skip it.
                 continue;
             var newTR = $(`<tr data-category='${data.category_id}'>`);
-            newTR.append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
+            newTR.append(`<td>${data.name.text}</td>`)
+                // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
                 .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
                 .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
                 .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
