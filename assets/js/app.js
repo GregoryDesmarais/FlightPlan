@@ -96,7 +96,7 @@ function eventbriteAPI(destination, startDate, endDate) {
             var newTR = $("<tr>");
             newTR.append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
                 .append(`<td data-category='${data.category_id}'>${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
-                .append(`<td>${moment(data.start.local).format("h:mm a")}</td>`) //Formats time as 02:00 am/pm
+                .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats time as 02:00 am/pm
                 .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
                 .append(`<td><a href='${data.url}'>More Info</a>`); //URL to the eventbrite page.
             $("#events").append(newTR);
