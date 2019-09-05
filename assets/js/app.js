@@ -103,7 +103,25 @@ function eventbriteAPI(destination, startDate, endDate) {
 }
 
 
-eventbriteAPI("Charlotte", "2019-09-02", "2019-09-03");
+// eventbriteAPI("Charlotte", "2019-09-02", "2019-09-03");
+
+$(document).ready(function () {
+
+    $("#submit").on("click", function (event) {
+        event.preventDefault();
+        var location = $("#destination-input").val().trim();
+        var startDate = $("#start-date").val().trim();
+        var endDate = $("#end-date").val().trim();
+        console.log(`${location} ${startDate} ${endDate}`);
+
+        eventbriteAPI(location, startDate, endDate);
+
+
+    });
+
+
+});
+
 
 // $(document).ready(function(){
 //   for ( i = 0; i < events.length;i++){
@@ -116,11 +134,11 @@ eventbriteAPI("Charlotte", "2019-09-02", "2019-09-03");
 // });
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('select').formSelect();
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('input.autocomplete').autocomplete({
         data: {
             "New York": null,
@@ -131,6 +149,6 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.datepicker').datepicker();
 });
