@@ -18,6 +18,6 @@ input:invalid {
     box-shadow: 0 0 5px 2px red
 }
 
-input:valid {
+input:focus:valid {
     box-shadow: none;
 }

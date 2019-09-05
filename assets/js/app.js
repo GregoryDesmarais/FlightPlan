@@ -37,7 +37,7 @@ for (x in categories) {
 }
 
 //On Selection of Filters, hide all rows, then only show rows containing the selected categories.
-$("#filter").on("change", function() {
+$("#filter").on("change", function () {
     var categoryFilters = $(this).val();
     if (categoryFilters.length === 0) {
         $("#events").find("tr").show();
@@ -56,23 +56,19 @@ function eventbriteAPI(destination, startDate, endDate) {
     if (destination) {
         console.log(destination);
     };
-    if (startDate) {
         startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
-    };
-    if (endDate) {
         endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
-    }
 
     var queryURL = `https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search?start_date.range_start=${startDate}&start_date.range_end=${endDate}&location.address=${destination}&page=${pageNo}`;
 
     $.ajax({
         url: queryURL,
         method: "GET",
-        beforeSend: function(request) {
+        beforeSend: function (request) {
             request.withCredentials = true;
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
-    }).then(function(response) {
+    }).then(function (response) {
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
@@ -84,7 +80,7 @@ function eventbriteAPI(destination, startDate, endDate) {
                 eventbriteAPI(destination, startDate, endDate)
             }
         }
-    }).then(function() { //Additional Then for after the events array is complete.
+    }).then(function () { //Additional Then for after the events array is complete.
         $("#events").empty(); //Empty the Events table.
         for (x in events) { //For each element in events array.
             var data = events[x]; //Set data to current element interval.
@@ -109,9 +105,22 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
+
+        var origin = $("#origin-input").val().trim();
         var location = $("#destination-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
+
+        if (origin === "" || location === "" || startDate === "" || endDate === "") {
+            alert("Stuff");
+            return false;
+        }
+
+        if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
+            alert("You dun goofed");
+            return false;
+        };
+
         console.log(`${location} ${startDate} ${endDate}`);
 
         eventbriteAPI(location, startDate, endDate);
