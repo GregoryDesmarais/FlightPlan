@@ -102,11 +102,11 @@ function eventbriteAPI(destination, startDate, endDate) {
     });
 }
 
-function skyscannerAPI(from, to, dept){
+function skyscannerAPI(from, to, date){
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + from + "-sky/" + to + "-sky/" + dept,
+        "url": "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + from + "-sky/" + to + "-sky/" + date,
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
@@ -138,13 +138,15 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
-        var location = $("#destination-input").val().trim();
+        var destination = $("#destination-input").val().trim();
+        var origin = $("#origin-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
-        console.log(`${location} ${startDate} ${endDate}`);
+        console.log(`${destination} ${startDate} ${endDate}`);
 
-        eventbriteAPI(location, startDate, endDate);
-        skyscannerAPI("CLT", "SFO", "2019-09-10")
+        eventbriteAPI(destination, startDate, endDate);
+        skyscannerAPI(origin, destination, startDate);
+        skyscannerAPI(destination, origin, endDate);
 
     });
 
