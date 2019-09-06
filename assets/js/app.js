@@ -26,6 +26,9 @@ var categories = {
     199: "Other",
     null: "None"
 };
+var airports = ["BHM", "DHN", "HSV", "MOB", "MGM", "ANC", "FAI", "JNU", "FLG", "PHX", "TUS", "YUM", "FYV", "LIT", "XNA", "BUR", "FAT", "LGB", "LAX", "OAK", "ONT","PSP","SMF","SAN","SFO","SJC","SNA","ASE","COS","DEN","GJT","PUB","BDL","HVN","IAD","DAB","FLL","RSW","JAX","EYW","MIA","MCO","PNS","PIE","SRQ","TPA","PBI","PFN","ATL","AGS","SAV","ITO","HNL","OGG","KOA","LIH","BOI","ORD","MLI","PIA","EVV","FWA","IND","SBN","CID","DSM","ICT","LEX","SDF","BTR","MSY","SHV","AUG","BGR","PWM","BWI","BOS","HYA","ACK","ORH","BTL","DET","FNT","GRR","AZO","LAN","MBS","DLH","MSP","RST","GPT","JAN","MCI","STL","SGF","BIL","LNK","OMA","LAS","RNO","MHT","ACY","EWR","TTN","ABQ","ALM","ALB","BUF","ISP","JFK","SWF","ROC","SYR","HPN","AVL","CLT","FAY","GSO","RDU","INT","BIS","FAR","CAK","CVG","CLE","CMH","DAY","TOL","OKC","TUL","EUG","PDX","SLE","ABE","ERI","MDT","PHL","PIT","AVP","PVD","CHS","CAE","GSP","MYR","PIR","RAP","FSD","TRI","CHA","TYS","MEM","BNA","AMA","AUS","CRP","DAL","ELP","HOU","LBB","MAF","SAT","SLC","BTV","MPV","RUT","IAD","PHF","ORF","RIC","ROA","PSC","SEA","GEG","CRW","CKB","HTS","GRB","MSN","MKE","CPR","CYS","JAC"];
+var cities = ["Birmingham", "Dothan", "Huntsville", "Mobile", "Montgomery", "Anchorage", "Fairbanks", "Juneau","Flagstaff","Phoenix","Tucson","Yuma","Fayetteville","Little Rock","Northwest Arkansas","Burbank","Fresno","Long Beach","Los Angeles","Oakland","Ontario","Palm Springs","Sacramento","San Diego","San Francisco","San Jose","Santa Ana","Aspen","Colorado Springs","Denver","Grand Junction","Pueblo","Hartford","Tweed New Haven","Washington","Daytona Beach","Fort Lauderdale-Hollywood","Fort Meyers","Jacksonville","Key West","Miami","Orlando","Pensacola","St. Petersburg","Sarasota","Tampa","West Palm Beach","Panama City","Atlanta","Augusta","Savannah","Hilo","Honolulu","Kahului","Kailua","Lihue","Boise","Chicago","Moline","Peoria","Evansville","Fort Wayne","Indianapolis","South Bend","Cedar Rapids","Des Moines","Wichita","Lexington","Louisville","Baton Rouge","New Orleans","Shreveport","Augusta (Maine)","Bangor","Portland","Baltimore","Boston","Hyannis","Nantucket","Worcester","Battlecreek","Detroit","Flint","Grand Rapids","Kalamazoo","Lansing","Saginaw","Duluth","Minneapolis","Rochester","Gulfport","Jackson","Kansas City","St Louis","Springfield","Billings","Lincoln","Omaha","Las Vegas","Reno-Tahoe","Manchester","Atlantic City","Newark","Trenton","Albuquerque","Alamogordo","Albany","Buffalo","Islip","New York","Newburgh","Rochester","Syracuse","Westchester","Asheville","Charlotte","Fayetteville","Greensboro","Raleigh","Winston-Salem","Bismark","Fargo","Akron","Cincinnati","Cleveland","Columbus","Dayton","Toledo","Oklahoma City","Tulsa","Eugene","Portland","Salem","Allentown","Erie","Harrisburg","Philadelphia","Pittsburgh","Scranton","Providence","Charleston","Columbia","Greenville","Myrtle Beach","Pierre","Rapid City","Sioux Falls","Bristol","Chattanooga","Knoxville","Memphis","Nashville","Amarillo","Austin Bergstrom","Corpus Christi","Dallas","El Paso","Houston","Lubbock","Midland","San Antonio","Salt Lake City","Burlington","Montpelier","Rutland","Dulles","Newport News","Norfolk","Richmond","Roanoke","Pasco","Seattle","Spokane","Charleston WV","Clarksburg","Huntington","Green Bay","Madison","Milwaukee","Casper","Cheyenne","Jackson Hole"];
+
 
 //Dynamically add filter categories to Filter Dropdown.
 $("#filter").empty();
@@ -146,10 +149,24 @@ $(document).ready(function () {
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
         console.log(`${destination} ${startDate} ${endDate}`);
+        var origin1;
+        var destination1;
+
+
+        for (i=0; i<cities.length; i++){
+            if(origin === cities[i]){
+                origin1 = airports[i];
+            }
+        }
+        for (i=0; i<cities.length; i++){
+            if(destination === cities[i]){
+                destination1 = airports[i];
+            }
+        }
 
         eventbriteAPI(destination, startDate, endDate);
-        skyscannerAPI(origin, destination, startDate);
-        skyscannerAPI(destination, origin, endDate);
+        skyscannerAPI(origin1, destination1, startDate);
+        skyscannerAPI(destination1, origin1, endDate);
 
     });
 
