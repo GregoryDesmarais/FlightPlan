@@ -13,11 +13,3 @@ main {
 h1 {
     font-weight: bold;
 }
-
-input:invalid {
-    box-shadow: 0 0 5px 2px red
-}
-
-input:focus:valid {
-    box-shadow: none;
-}

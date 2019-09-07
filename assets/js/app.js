@@ -56,8 +56,8 @@ function eventbriteAPI(destination, startDate, endDate) {
     if (destination) {
         console.log(destination);
     };
-        startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
-        endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
+    startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
+    endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
 
     var queryURL = `https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search?start_date.range_start=${startDate}&start_date.range_end=${endDate}&location.address=${destination}&page=${pageNo}`;
 
@@ -112,12 +112,14 @@ $(document).ready(function () {
         var endDate = $("#end-date").val().trim();
 
         if (origin === "" || location === "" || startDate === "" || endDate === "") {
-            alert("Stuff");
+            $('#modalEmpty').modal();
+            $('#modalEmpty').modal('open');
             return false;
         }
 
         if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
-            alert("You dun goofed");
+            $('#modalDate').modal();
+            $('#modalDate').modal('open');
             return false;
         };
 
@@ -245,3 +247,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.datepicker').datepicker();
 });
+
+$(document).ready(function(){
+    $('.modal').modal();
+  });
