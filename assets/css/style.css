@@ -13,3 +13,24 @@ main {
 h1 {
     font-weight: bold;
 }
+
+input::placeholder {
+    color: black;
+}
+
+input:focus::placeholder{
+    color:transparent;
+}
+
+.modal {
+    max-width: 750px;
+}
+
+.page-footer {
+    padding: 0;
+}
+
+.ftext {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

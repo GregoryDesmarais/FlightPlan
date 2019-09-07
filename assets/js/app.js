@@ -56,12 +56,8 @@ function eventbriteAPI(destination, startDate, endDate) {
     if (destination) {
         console.log(destination);
     };
-    if (startDate) {
-        startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
-    };
-    if (endDate) {
-        endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
-    }
+    startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
+    endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
 
     var queryURL = `https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search?start_date.range_start=${startDate}&start_date.range_end=${endDate}&location.address=${destination}&page=${pageNo}`;
 
@@ -147,10 +143,19 @@ $(document).ready(function () {
         var endDate = $("#end-date").val().trim();
         console.log(`${destination} ${startDate} ${endDate}`);
 
+        if (origin === "" || destination === "" || startDate === "" || endDate === "") {
+            $('#modalEmpty').modal('open');
+            return false;
+        }
+
+        if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
+            $('#modalDate').modal('open');
+            return false;
+        }; 
+
         eventbriteAPI(destination, startDate, endDate);
         skyscannerAPI(origin, destination, startDate);
         skyscannerAPI(destination, origin, endDate);
-
     });
 
 
@@ -178,9 +183,93 @@ $(document).ready(function () {
     $('input.autocomplete').autocomplete({
         data: {
             "New York": null,
-            "Apple": null,
-            "Microsoft": null,
-            "Google": 'https://placehold.it/250x250'
+            "Cairo": null,
+            "Tokyo": null,
+            "Osaka": 'https://placehold.it/250x250',
+            "Delhi": null,
+            "Shanghai": null,
+            "Mexico City": null,
+            "Bejing": null,
+            "Istanbul": null,
+            "Moscow": null,
+            "Seoul": null,
+            "London": null,
+            "Bangalore": null,
+            "Hong Kong": null,
+            "Hyderabad": null,
+            "Singapore": null,
+            "Log Angeles": null,
+            "Berlin": null,
+            "Paris": null,
+            "Rome": null,
+            "Venice": null,
+            "Amsterdam": null,
+            "copenhagen": null,
+            "Stockholm": null,
+            "Oslo": null,
+            "Barcelona": null,
+            "Madrid": null,
+            "Lisbon": null,
+            "Prague": null,
+            "Vienna": null,
+            "Munich": null,
+            "Bangkok": null,
+            "Sydney": null,
+            "Melbourne": null,
+            "Auckland": null,
+            "Cologne": null,
+            "Ho Chi Minh City": null,
+            "Taipei": null,
+            "Dubai": null,
+            "Port Elizabeth": null,
+            "Rio De Janeiro": null,
+            "Sao Paulo": null,
+            "Toronto": null,
+            "Montreal": null,
+            "Vancouver": null,
+            "Seattle": null,
+            "Portland": null,
+            "San Francisco": null,
+            "San Diego": null,
+            "Pheonix": null,
+            "Las Vegas": null,
+            "Denver": null,
+            "Salt Lake City": null,
+            "Albuquerque": null,
+            "El Paso": null,
+            "Dallas": null,
+            "Oklahoma City": null,
+            "Austin": null,
+            "San Antonio": null,
+            "Houston": null,
+            "Memphis": null,
+            "Kansas City": null,
+            "St. Louis": null,
+            "Nashville": null,
+            "New Orleans": null,
+            "Orlando": null,
+            "Tampa": null,
+            "Miami": null,
+            "Charlotte": null,
+            "Raleigh": null,
+            "Atlanta": null,
+            "Louisville": null,
+            "Chicago": null,
+            "Cincinnati": null,
+            "Columbus": null,
+            "Cleveland": null,
+            "Detroit": null,
+            "Pittsburgh": null,
+            "Washington": null,
+            "Philadelphia": null,
+            "Richmond": null,
+            "Boston": null,
+            "Minneapolis": null,
+            "Sacramento": null,
+            "Tuscon": null,
+            "Winnipeg": null,
+            "Fort Worth": null,
+
         },
     });
 });
@@ -188,3 +277,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.datepicker').datepicker();
 });
+
+$(document).ready(function(){
+    $('.modal').modal();
+  });
