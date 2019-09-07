@@ -80,7 +80,7 @@ function eventbriteAPI(destination, startDate, endDate) {
                 eventbriteAPI(destination, startDate, endDate)
             }
         }
-    }).then(function () { //Additional Then for after the events array is complete.
+    }).then(function() { //Additional Then for after the events array is complete.
         $("#events").empty(); //Empty the Events table.
         for (x in events) { //For each element in events array.
             var data = events[x]; //Set data to current element interval.
