@@ -47,38 +47,44 @@ function eventbriteAPI(destination, startDate, endDate) {
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
     }).then(function (response) {
+        if(response.events.length === 0)
+        {
+            alert("There are no more events");
+        }
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
-        pageCount = response.pagination.page_count;
-        console.log("pass: " + pageNo);
-        if (pageCount > 1 && pageCount !== pageNo) {
-            for (i = 2; i <= pageCount; i++) {
-                pageNo = i;
-                eventbriteAPI(destination, startDate, endDate)
-            }
-        }
-        else {
-            console.log(events.length);
-            $("#events").empty(); //Empty the Events table.
-            for (x in events) { //For each element in events array.
-                var data = events[x]; //Set data to current element interval.
-                var newTR = $(`<tr data-category='${data.category_id}'>`);
-                newTR.append(`<td>${data.name.text}</td>`)
-                    // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
-                    .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
-                    .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
-                    .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
-                    .append(`<td><a href='${data.url}'>More Info</a>`); //URL to the eventbrite page.
-                $("#events").append(newTR);
-            }
-            events = [];
-            pageNo = 1;
-            pageCount = 0;
-        }
+        console.log(events.length);
+        buildTable(events);
+        events = [];
     });
 }
 
+function buildTable(events){
+    for (x in events) { //For each element in events array.
+        var data = events[x]; //Set data to current element interval.
+        var newTR = $(`<tr data-category='${data.category_id}'>`);
+        newTR.append(`<td>${data.name.text}</td>`)
+            // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
+            .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
+            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
+            .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
+            .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
+        $("#events").append(newTR);
+    }
+}
+
+$("#moreEvents").click(function()
+{
+    console.log(pageNo);
+    pageNo++;
+    console.log(pageNo);
+    var location = $("#destination-input").val().trim();
+    var startDate = $("#start-date").val().trim();
+    var endDate = $("#end-date").val().trim();
+    eventbriteAPI(location, startDate, endDate);
+
+})
 
 // eventbriteAPI("Charlotte", "2019-09-02", "2019-09-03");
 
@@ -86,14 +92,14 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
+        $("#events").empty(); //Empty the Events table.
+        pageNo = 1;
         var location = $("#destination-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
         console.log(`${location} ${startDate} ${endDate}`);
 
         eventbriteAPI(location, startDate, endDate);
-
-
     });
 
 
