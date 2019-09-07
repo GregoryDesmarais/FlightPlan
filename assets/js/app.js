@@ -80,7 +80,9 @@ $("#moreEvents").click(function () {
 
 })
 
+//Flight API function that will take locations and departure date as input.
 function skyscannerAPI(from, to, date) {
+    $(".loadingBar1").show();
     var date1 = moment(date).format("YYYY-MM-DD");
     var dateFormat = moment(date).format("MMM DD, YYYY");
     var settings = {
@@ -103,10 +105,11 @@ function skyscannerAPI(from, to, date) {
                 <td>${to}</td>
                 <td>${response.Carriers[i].Name}</td>
                 <td>${dateFormat}</td>
-                <td>${response.Quotes[0].MinPrice}</td>
+                <td>${"$" + response.Quotes[0].MinPrice}</td>
                 </tr>
                 `
                 $(".flight").append(row2);
+                $(".loadingBar1").hide();
             }
         }
     });
@@ -140,8 +143,8 @@ $(document).ready(function () {
         $(".loadingBar").show();
         eventbriteAPI(destination, startDate, endDate);
         $("#moreEvents").show();
-        skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate);
-        skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);
+        skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate); //calling flight API for orgin to destination flight.
+        skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);   //calling flight API for return flight from destination to origin.
     });
 
 });
@@ -149,6 +152,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $(".loadingBar").hide();
+    $(".loadingBar1").hide();
     $("#moreEvents").hide();
     $('select').formSelect();
     $('.datepicker').datepicker();
