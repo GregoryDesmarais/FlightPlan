@@ -82,6 +82,7 @@ $("#moreEvents").click(function () {
 
 function skyscannerAPI(from, to, date) {
     var date1 = moment(date).format("YYYY-MM-DD");
+    var dateFormat = moment(date).format("MMM DD, YYYY");
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -101,7 +102,7 @@ function skyscannerAPI(from, to, date) {
                 <td>${from}</td>
                 <td>${to}</td>
                 <td>${response.Carriers[i].Name}</td>
-                <td>${date}</td>
+                <td>${dateFormat}</td>
                 <td>${response.Quotes[0].MinPrice}</td>
                 </tr>
                 `
