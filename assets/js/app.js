@@ -37,7 +37,7 @@ for (x in categories) {
 }
 
 //On Selection of Filters, hide all rows, then only show rows containing the selected categories.
-$("#filter").on("change", function () {
+$("#filter").on("change", function() {
     var categoryFilters = $(this).val();
     if (categoryFilters.length === 0) {
         $("#events").find("tr").show();
@@ -64,11 +64,11 @@ function eventbriteAPI(destination, startDate, endDate) {
     $.ajax({
         url: queryURL,
         method: "GET",
-        beforeSend: function (request) {
+        beforeSend: function(request) {
             request.withCredentials = true;
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
-    }).then(function (response) {
+    }).then(function(response) {
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
