@@ -123,8 +123,9 @@ $(document).ready(function () {
             return false;
         }; 
 
-        eventbriteAPI(location, startDate, endDate);
-
+        eventbriteAPI(destination, startDate, endDate);
+        skyscannerAPI(origin, destination, startDate);
+        skyscannerAPI(destination, origin, endDate);
     });
 
 
