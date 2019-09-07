@@ -26,8 +26,8 @@ var categories = {
     199: "Other",
     null: "None"
 };
-var airports = ["BHM", "DHN", "HSV", "MOB", "MGM", "ANC", "FAI", "JNU", "FLG", "PHX", "TUS", "YUM", "FYV", "LIT", "XNA", "BUR", "FAT", "LGB", "LAX", "OAK", "ONT","PSP","SMF","SAN","SFO","SJC","SNA","ASE","COS","DEN","GJT","PUB","BDL","HVN","IAD","DAB","FLL","RSW","JAX","EYW","MIA","MCO","PNS","PIE","SRQ","TPA","PBI","PFN","ATL","AGS","SAV","ITO","HNL","OGG","KOA","LIH","BOI","ORD","MLI","PIA","EVV","FWA","IND","SBN","CID","DSM","ICT","LEX","SDF","BTR","MSY","SHV","AUG","BGR","PWM","BWI","BOS","HYA","ACK","ORH","BTL","DET","FNT","GRR","AZO","LAN","MBS","DLH","MSP","RST","GPT","JAN","MCI","STL","SGF","BIL","LNK","OMA","LAS","RNO","MHT","ACY","EWR","TTN","ABQ","ALM","ALB","BUF","ISP","JFK","SWF","ROC","SYR","HPN","AVL","CLT","FAY","GSO","RDU","INT","BIS","FAR","CAK","CVG","CLE","CMH","DAY","TOL","OKC","TUL","EUG","PDX","SLE","ABE","ERI","MDT","PHL","PIT","AVP","PVD","CHS","CAE","GSP","MYR","PIR","RAP","FSD","TRI","CHA","TYS","MEM","BNA","AMA","AUS","CRP","DAL","ELP","HOU","LBB","MAF","SAT","SLC","BTV","MPV","RUT","IAD","PHF","ORF","RIC","ROA","PSC","SEA","GEG","CRW","CKB","HTS","GRB","MSN","MKE","CPR","CYS","JAC"];
-var cities = ["Birmingham", "Dothan", "Huntsville", "Mobile", "Montgomery", "Anchorage", "Fairbanks", "Juneau","Flagstaff","Phoenix","Tucson","Yuma","Fayetteville","Little Rock","Northwest Arkansas","Burbank","Fresno","Long Beach","Los Angeles","Oakland","Ontario","Palm Springs","Sacramento","San Diego","San Francisco","San Jose","Santa Ana","Aspen","Colorado Springs","Denver","Grand Junction","Pueblo","Hartford","Tweed New Haven","Washington","Daytona Beach","Fort Lauderdale-Hollywood","Fort Meyers","Jacksonville","Key West","Miami","Orlando","Pensacola","St. Petersburg","Sarasota","Tampa","West Palm Beach","Panama City","Atlanta","Augusta","Savannah","Hilo","Honolulu","Kahului","Kailua","Lihue","Boise","Chicago","Moline","Peoria","Evansville","Fort Wayne","Indianapolis","South Bend","Cedar Rapids","Des Moines","Wichita","Lexington","Louisville","Baton Rouge","New Orleans","Shreveport","Augusta (Maine)","Bangor","Portland","Baltimore","Boston","Hyannis","Nantucket","Worcester","Battlecreek","Detroit","Flint","Grand Rapids","Kalamazoo","Lansing","Saginaw","Duluth","Minneapolis","Rochester","Gulfport","Jackson","Kansas City","St Louis","Springfield","Billings","Lincoln","Omaha","Las Vegas","Reno-Tahoe","Manchester","Atlantic City","Newark","Trenton","Albuquerque","Alamogordo","Albany","Buffalo","Islip","New York","Newburgh","Rochester","Syracuse","Westchester","Asheville","Charlotte","Fayetteville","Greensboro","Raleigh","Winston-Salem","Bismark","Fargo","Akron","Cincinnati","Cleveland","Columbus","Dayton","Toledo","Oklahoma City","Tulsa","Eugene","Portland","Salem","Allentown","Erie","Harrisburg","Philadelphia","Pittsburgh","Scranton","Providence","Charleston","Columbia","Greenville","Myrtle Beach","Pierre","Rapid City","Sioux Falls","Bristol","Chattanooga","Knoxville","Memphis","Nashville","Amarillo","Austin Bergstrom","Corpus Christi","Dallas","El Paso","Houston","Lubbock","Midland","San Antonio","Salt Lake City","Burlington","Montpelier","Rutland","Dulles","Newport News","Norfolk","Richmond","Roanoke","Pasco","Seattle","Spokane","Charleston WV","Clarksburg","Huntington","Green Bay","Madison","Milwaukee","Casper","Cheyenne","Jackson Hole"];
+var airports = ["BHM", "DHN", "HSV", "MOB", "MGM", "ANC", "FAI", "JNU", "FLG", "PHX", "TUS", "YUM", "FYV", "LIT", "XNA", "BUR", "FAT", "LGB", "LAX", "OAK", "ONT", "PSP", "SMF", "SAN", "SFO", "SJC", "SNA", "ASE", "COS", "DEN", "GJT", "PUB", "BDL", "HVN", "IAD", "DAB", "FLL", "RSW", "JAX", "EYW", "MIA", "MCO", "PNS", "PIE", "SRQ", "TPA", "PBI", "PFN", "ATL", "AGS", "SAV", "ITO", "HNL", "OGG", "KOA", "LIH", "BOI", "ORD", "MLI", "PIA", "EVV", "FWA", "IND", "SBN", "CID", "DSM", "ICT", "LEX", "SDF", "BTR", "MSY", "SHV", "AUG", "BGR", "PWM", "BWI", "BOS", "HYA", "ACK", "ORH", "BTL", "DET", "FNT", "GRR", "AZO", "LAN", "MBS", "DLH", "MSP", "RST", "GPT", "JAN", "MCI", "STL", "SGF", "BIL", "LNK", "OMA", "LAS", "RNO", "MHT", "ACY", "EWR", "TTN", "ABQ", "ALM", "ALB", "BUF", "ISP", "JFK", "SWF", "ROC", "SYR", "HPN", "AVL", "CLT", "FAY", "GSO", "RDU", "INT", "BIS", "FAR", "CAK", "CVG", "CLE", "CMH", "DAY", "TOL", "OKC", "TUL", "EUG", "PDX", "SLE", "ABE", "ERI", "MDT", "PHL", "PIT", "AVP", "PVD", "CHS", "CAE", "GSP", "MYR", "PIR", "RAP", "FSD", "TRI", "CHA", "TYS", "MEM", "BNA", "AMA", "AUS", "CRP", "DAL", "ELP", "HOU", "LBB", "MAF", "SAT", "SLC", "BTV", "MPV", "RUT", "IAD", "PHF", "ORF", "RIC", "ROA", "PSC", "SEA", "GEG", "CRW", "CKB", "HTS", "GRB", "MSN", "MKE", "CPR", "CYS", "JAC"];
+var cities = ["Birmingham", "Dothan", "Huntsville", "Mobile", "Montgomery", "Anchorage", "Fairbanks", "Juneau", "Flagstaff", "Phoenix", "Tucson", "Yuma", "Fayetteville", "Little Rock", "Northwest Arkansas", "Burbank", "Fresno", "Long Beach", "Los Angeles", "Oakland", "Ontario", "Palm Springs", "Sacramento", "San Diego", "San Francisco", "San Jose", "Santa Ana", "Aspen", "Colorado Springs", "Denver", "Grand Junction", "Pueblo", "Hartford", "Tweed New Haven", "Washington", "Daytona Beach", "Fort Lauderdale-Hollywood", "Fort Meyers", "Jacksonville", "Key West", "Miami", "Orlando", "Pensacola", "St. Petersburg", "Sarasota", "Tampa", "West Palm Beach", "Panama City", "Atlanta", "Augusta", "Savannah", "Hilo", "Honolulu", "Kahului", "Kailua", "Lihue", "Boise", "Chicago", "Moline", "Peoria", "Evansville", "Fort Wayne", "Indianapolis", "South Bend", "Cedar Rapids", "Des Moines", "Wichita", "Lexington", "Louisville", "Baton Rouge", "New Orleans", "Shreveport", "Augusta (Maine)", "Bangor", "Portland", "Baltimore", "Boston", "Hyannis", "Nantucket", "Worcester", "Battlecreek", "Detroit", "Flint", "Grand Rapids", "Kalamazoo", "Lansing", "Saginaw", "Duluth", "Minneapolis", "Rochester", "Gulfport", "Jackson", "Kansas City", "St Louis", "Springfield", "Billings", "Lincoln", "Omaha", "Las Vegas", "Reno-Tahoe", "Manchester", "Atlantic City", "Newark", "Trenton", "Albuquerque", "Alamogordo", "Albany", "Buffalo", "Islip", "New York", "Newburgh", "Rochester", "Syracuse", "Westchester", "Asheville", "Charlotte", "Fayetteville", "Greensboro", "Raleigh", "Winston-Salem", "Bismark", "Fargo", "Akron", "Cincinnati", "Cleveland", "Columbus", "Dayton", "Toledo", "Oklahoma City", "Tulsa", "Eugene", "Portland", "Salem", "Allentown", "Erie", "Harrisburg", "Philadelphia", "Pittsburgh", "Scranton", "Providence", "Charleston", "Columbia", "Greenville", "Myrtle Beach", "Pierre", "Rapid City", "Sioux Falls", "Bristol", "Chattanooga", "Knoxville", "Memphis", "Nashville", "Amarillo", "Austin Bergstrom", "Corpus Christi", "Dallas", "El Paso", "Houston", "Lubbock", "Midland", "San Antonio", "Salt Lake City", "Burlington", "Montpelier", "Rutland", "Dulles", "Newport News", "Norfolk", "Richmond", "Roanoke", "Pasco", "Seattle", "Spokane", "Charleston WV", "Clarksburg", "Huntington", "Green Bay", "Madison", "Milwaukee", "Casper", "Cheyenne", "Jackson Hole"];
 
 
 //Dynamically add filter categories to Filter Dropdown.
@@ -40,7 +40,7 @@ for (x in categories) {
 }
 
 //On Selection of Filters, hide all rows, then only show rows containing the selected categories.
-$("#filter").on("change", function() {
+$("#filter").on("change", function () {
     var categoryFilters = $(this).val();
     if (categoryFilters.length === 0) {
         $("#events").find("tr").show();
@@ -71,11 +71,11 @@ function eventbriteAPI(destination, startDate, endDate) {
     $.ajax({
         url: queryURL,
         method: "GET",
-        beforeSend: function(request) {
+        beforeSend: function (request) {
             request.withCredentials = true;
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
-    }).then(function(response) {
+    }).then(function (response) {
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
@@ -87,7 +87,7 @@ function eventbriteAPI(destination, startDate, endDate) {
                 eventbriteAPI(destination, startDate, endDate)
             }
         }
-    }).then(function() { //Additional Then for after the events array is complete.
+    }).then(function () { //Additional Then for after the events array is complete.
         $("#events").empty(); //Empty the Events table.
         for (x in events) { //For each element in events array.
             var data = events[x]; //Set data to current element interval.
@@ -105,7 +105,7 @@ function eventbriteAPI(destination, startDate, endDate) {
     });
 }
 
-function skyscannerAPI(from, to, date){
+function skyscannerAPI(from, to, date) {
     var date1 = moment(date).format("YYYY-MM-DD");
     console.log(date1);
     var settings = {
@@ -122,7 +122,7 @@ function skyscannerAPI(from, to, date){
     $.ajax(settings).done(function (response) {
         console.log(response);
         for (i = 0; i < response.Carriers.length; i++) {
-            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {             
+            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
                 var row2 = `
                 <tr>
                 <td>${from}</td>
@@ -151,15 +151,15 @@ $(document).ready(function () {
         console.log(`${destination} ${startDate} ${endDate}`);
         var origin1;
         var destination1;
+        $(".flight").empty();
 
-
-        for (i=0; i<cities.length; i++){
-            if(origin === cities[i]){
+        for (i = 0; i < cities.length; i++) {
+            if (origin === cities[i]) {
                 origin1 = airports[i];
             }
         }
-        for (i=0; i<cities.length; i++){
-            if(destination === cities[i]){
+        for (i = 0; i < cities.length; i++) {
+            if (destination === cities[i]) {
                 destination1 = airports[i];
             }
         }
