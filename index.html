@@ -70,6 +70,7 @@
                     <thead>
                         <tr>
                             <th>From</th>
+                            <th>To</th>
                             <th>Company</th>
                             <th>Departure Date</th>
                             <th>Price ($)</th>
@@ -83,41 +84,44 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row eventTable">
             <h4>Events</h4>
             <div class="input-field col s12">
                 <select multiple id='filter'>
                 </select>
                 <label>Event Category Filter</label>
             </div>
-            <div class="col s12 z-depth-4">
+            <div class="col s12 z-depth-2">
                 <table class="highlight responsive-table">
                     <thead>
                         <tr>
                             <th>Event Name</th>
-                            <!-- <th>Event Description</th> -->
                             <th>Category</th>
                             <th>Date/Time</th>
                             <th>Price ($)</th>
                             <th>More Info</th>
                         </tr>
                     </thead>
-
                     <tbody id="events">
-                        <tr>
-                            <td colspan="5" class="center-align loadingBar">
-                                <div class="progress">
-                                    <div class="indeterminate"></div>
-                                </div>
-                            </td>
-                        </tr>
-
                     </tbody>
                 </table>
-                <button class="btn waves-effect waves-light" name="action" id="moreEvents">Check for more events
-                    <i class="material-icons right">send</i>
-                </button>
             </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="progress loadingBar">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light z-depth-2" name="action" id="moreEvents">Check
+                for more events
+                <i class="material-icons right">send</i>
+            </button>
         </div>
     </div>
 

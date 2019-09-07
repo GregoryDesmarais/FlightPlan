@@ -72,6 +72,7 @@ function buildTable(events) {
 }
 
 $("#moreEvents").click(function () {
+    $(".loadingBar").show();
     pageNo++;
     var location = $("#destination-input").val().trim();
     var startDate = $("#start-date").val().trim();
@@ -99,6 +100,7 @@ function skyscannerAPI(from, to, date) {
                 var row2 = `
                 <tr>
                 <td>${from}</td>
+                <td>${to}</td>
                 <td>${response.Carriers[i].Name}</td>
                 <td>${date}</td>
                 <td>${response.Quotes[0].MinPrice}</td>
@@ -142,12 +144,9 @@ $(document).ready(function () {
         skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);
     });
 
-
 });
 
 $(document).ready(function () {
-
-    
 
     $(".loadingBar").hide();
     $("#moreEvents").hide();
