@@ -72,6 +72,7 @@ function buildTable(events){
             .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
         $("#events").append(newTR);
     }
+    $("#events").parent().trigger("update");
 }
 
 $("#moreEvents").click(function()
@@ -107,9 +108,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('select').formSelect();
-});
-
-$(document).ready(function () {
+    $('.datepicker').datepicker();
     $('input.autocomplete').autocomplete({
         data: {
             "New York": null,
@@ -118,8 +117,12 @@ $(document).ready(function () {
             "Google": 'https://placehold.it/250x250'
         },
     });
+
+$("#events").parent().tablesorter();
 });
 
 $(document).ready(function () {
-    $('.datepicker').datepicker();
+});
+
+$(document).ready(function () {
 });
