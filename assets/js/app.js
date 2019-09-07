@@ -44,7 +44,8 @@ function eventbriteAPI(destination, startDate, endDate) {
 
         if(response.events.length === 0)
         {
-            alert("There are no more events"); //remove this
+            $('#modalEvents').modal('open');
+            $("#moreEvents").hide();
         }
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
@@ -66,7 +67,9 @@ function buildTable(events){
             .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
         $("#events").append(newTR);
     }
+    $("#filter").trigger("change");
     $("#events").parent().trigger("update");
+    $(".loadingBar").hide();
 }
 
 $("#moreEvents").click(function()
@@ -120,21 +123,23 @@ $(document).ready(function () {
         var origin = $("#origin-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
-        console.log(`${destination} ${startDate} ${endDate}`);
         $(".flight").empty();
-      
+
         if (origin === "" || destination === "" || startDate === "" || endDate === "") {
             $('#modalEmpty').modal('open');
+            $(".modalAccept").focus();
             return false;
         }
 
         if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
             $('#modalDate').modal('open');
+            $(".modalAccept").focus();
             return false;
         }; 
 
-       
+        $(".loadingBar").show();
         eventbriteAPI(destination, startDate, endDate);
+        $("#moreEvents").show();
         skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate);
         skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);
     });
@@ -143,6 +148,8 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $(".loadingBar").hide();
+    $("#moreEvents").hide();
     $('select').formSelect();
     $('.datepicker').datepicker();
     $('.modal').modal();
