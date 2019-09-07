@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Flightplan</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Rubik&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/materialize.min.css">
@@ -32,29 +32,27 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">map</i>
-                        <input type="text" id="origin-input" class="autocomplete">
-                        <label for="location-input">Origin</label>
+                        <input type="text" id="origin-input" class="autocomplete" required minlength="2"
+                            placeholder="Origin">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">map</i>
-                        <input type="text" id="destination-input" class="autocomplete">
-                        <label for="location-input">Destination</label>
+                        <input type="text" id="destination-input" class="autocomplete" required minlength="2"
+                            placeholder="Destination">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="text" class="datepicker" id="start-date">
-                        <label for="start-input">Start Date</label>
+                        <input type="text" class="datepicker" id="start-date" required placeholder="Start Date">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="text" class="datepicker" id="end-date">
-                        <label for="End-input">End Date</label>
+                        <input type="text" class="datepicker" id="end-date" required placeholder="End Date">
                     </div>
                 </div>
                 <div class="row">
@@ -84,6 +82,7 @@
                 </table>
             </div>
         </div>
+
         <div class="row">
             <h4>Events</h4>
             <div class="input-field col s12">
@@ -107,44 +106,51 @@
                     <tbody id="events">
                         <tr>
                             <td></td>
-                            <td>Loading, please wait...</td>
+                            <td class='info'>Loading, please wait...</td>
                             <td></td>
                         </tr>
                     </tbody>
                 </table>
+                <button class="btn waves-effect waves-light" name="action" id="moreEvents">Check for more events
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </div>
     </div>
 
-    <footer class="page-footer teal lighten-2">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                        content.
-                    </p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                    </ul>
-                </div>
-            </div>
+    <div id="modalEmpty" class="modal z-depth-3">
+        <div class="modal-content">
+            <h4>Empty Field</h4>
+            <p>Please ensure you have entered all required information and have not left anything blank.</p>
         </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn">Accept</a>
+        </div>
+    </div>
+
+    <div id="modalDate" class="modal z-depth-3">
+        <div class="modal-content">
+            <h4>Invalid Date Format</h4>
+            <p>Please enter a valid date format for Start and End Date.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn">Accept</a>
+        </div>
+    </div>
+
+    <footer class="page-footer teal lighten-2">
         <div class="footer-copyright">
             <div class="container">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                © 2019 Copyright Text
+                <a class="grey-text text-lighten-4 right ftext" href="#!">Flightplan</a>
             </div>
         </div>
     </footer>
 
     <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha256-uC1JMW5e1U5D28+mXFxzTz4SSMCywqhxQIodqLECnfU=" crossorigin="anonymous"></script>
     <script src="assets/js/moment.js"></script>
-
+    <script src="assets/js/data.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/materialize.min.js"></script>
 </body>
