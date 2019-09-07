@@ -34,7 +34,9 @@ input:focus::placeholder{
     font-weight: bold;
     font-size: 1.2rem;
 }
-
+.eventHeading{
+    font-weight: bold;
+}
 /* #events > tr > td:first, #events > tr > th:first  {
     max-width: 200px;
 } */
