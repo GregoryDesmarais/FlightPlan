@@ -105,13 +105,13 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
-
+        var destination = $("#destination-input").val().trim();
         var origin = $("#origin-input").val().trim();
-        var location = $("#destination-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
+        console.log(`${destination} ${startDate} ${endDate}`);
 
-        if (origin === "" || location === "" || startDate === "" || endDate === "") {
+        if (origin === "" || destination === "" || startDate === "" || endDate === "") {
             $('#modalEmpty').modal();
             $('#modalEmpty').modal('open');
             return false;
@@ -121,12 +121,9 @@ $(document).ready(function () {
             $('#modalDate').modal();
             $('#modalDate').modal('open');
             return false;
-        };
-
-        console.log(`${location} ${startDate} ${endDate}`);
+        }; 
 
         eventbriteAPI(location, startDate, endDate);
-
 
     });
 
