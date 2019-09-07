@@ -1,31 +1,6 @@
-var events = [];
 var pageNo = 1;
 var pageCount;
-//All available categories from Eventbrite's API.
-var categories = {
-    101: "Business & Professional",
-    102: "Science & Technology",
-    103: "Music",
-    104: "Film, Media & Entertainment",
-    105: "Performing & Visual Arts",
-    106: "Fashion & Beauty",
-    107: "Health & Wellness",
-    108: "Sports & Fitness",
-    109: "Travel & Outdoor",
-    110: "Food & Drink",
-    111: "Charity & Causes",
-    112: "Government & Politics",
-    113: "Community & Culture",
-    114: "Religion & Spirituality",
-    115: "Family & Education",
-    116: "Seasonal & Holiday",
-    117: "Home & Lifestyle",
-    118: "Auto, Boat & Air",
-    119: "Hobbies & Special Interest",
-    120: "School Activities",
-    199: "Other",
-    null: "None"
-};
+var events = [];
 
 //Dynamically add filter categories to Filter Dropdown.
 $("#filter").empty();
@@ -37,7 +12,7 @@ for (x in categories) {
 }
 
 //On Selection of Filters, hide all rows, then only show rows containing the selected categories.
-$("#filter").on("change", function() {
+$("#filter").on("change", function () {
     var categoryFilters = $(this).val();
     if (categoryFilters.length === 0) {
         $("#events").find("tr").show();
@@ -52,7 +27,6 @@ $("#filter").on("change", function() {
 
 // api call function 
 function eventbriteAPI(destination, startDate, endDate) {
-
     if (destination) {
         console.log(destination);
     };
@@ -64,39 +38,50 @@ function eventbriteAPI(destination, startDate, endDate) {
     $.ajax({
         url: queryURL,
         method: "GET",
-        beforeSend: function(request) {
+        beforeSend: function (request) {
             request.withCredentials = true;
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
-    }).then(function(response) {
+    }).then(function (response) {
+        if(response.events.length === 0)
+        {
+            alert("There are no more events");
+        }
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
-        pageCount = response.pagination.page_count;
-        console.log("pass: " + pageNo);
-        if (pageCount > 1 && pageCount !== pageNo) {
-            for (i = 2; i <= pageCount; i++) {
-                pageNo = i;
-                eventbriteAPI(destination, startDate, endDate)
-            }
-        }
-    }).then(function() { //Additional Then for after the events array is complete.
-        $("#events").empty(); //Empty the Events table.
-        for (x in events) { //For each element in events array.
-            var data = events[x]; //Set data to current element interval.
-            if (data.summary === null) //If event does not have a summary, skip it.
-                continue;
-            var newTR = $(`<tr data-category='${data.category_id}'>`);
-            newTR.append(`<td>${data.name.text}</td>`)
-                // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
-                .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
-                .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
-                .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
-                .append(`<td><a href='${data.url}'>More Info</a>`); //URL to the eventbrite page.
-            $("#events").append(newTR);
-        }
+        console.log(events.length);
+        buildTable(events);
+        events = [];
     });
 }
+
+function buildTable(events){
+    for (x in events) { //For each element in events array.
+        var data = events[x]; //Set data to current element interval.
+        var newTR = $(`<tr data-category='${data.category_id}'>`);
+        newTR.append(`<td>${data.name.text}</td>`)
+            // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
+            .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
+            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
+            .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
+            .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
+        $("#events").append(newTR);
+    }
+    $("#events").parent().trigger("update");
+}
+
+$("#moreEvents").click(function()
+{
+    console.log(pageNo);
+    pageNo++;
+    console.log(pageNo);
+    var location = $("#destination-input").val().trim();
+    var startDate = $("#start-date").val().trim();
+    var endDate = $("#end-date").val().trim();
+    eventbriteAPI(location, startDate, endDate);
+
+})
 
 function skyscannerAPI(from, to, date){
     var date1 = moment(date).format("YYYY-MM-DD");
@@ -137,12 +122,14 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
+        $("#events").empty(); //Empty the Events table.
+        pageNo = 1
         var destination = $("#destination-input").val().trim();
         var origin = $("#origin-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
         console.log(`${destination} ${startDate} ${endDate}`);
-
+      
         if (origin === "" || destination === "" || startDate === "" || endDate === "") {
             $('#modalEmpty').modal('open');
             return false;
@@ -161,25 +148,10 @@ $(document).ready(function () {
 
 });
 
-
-
-
-// $(document).ready(function(){
-//   for ( i = 0; i < events.length;i++){
-//     var event = events[i];
-//     var free = event.is_free;
-//     var name = event.name;
-//     var url = event.url;
-//     // var tableEntry = 
-//   }
-// });
-
-
 $(document).ready(function () {
     $('select').formSelect();
-});
-
-$(document).ready(function () {
+    $('.datepicker').datepicker();
+    $('.modal').modal();
     $('input.autocomplete').autocomplete({
         data: {
             "New York": null,
@@ -272,12 +244,6 @@ $(document).ready(function () {
 
         },
     });
-});
 
-$(document).ready(function () {
-    $('.datepicker').datepicker();
+$("#events").parent().tablesorter();
 });
-
-$(document).ready(function(){
-    $('.modal').modal();
-  });
