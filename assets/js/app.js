@@ -59,9 +59,8 @@ function buildTable(events) {
         var data = events[x]; //Set data to current element interval.
         var newTR = $(`<tr data-category='${data.category_id}'>`);
         newTR.append(`<td>${data.name.text}</td>`)
-            // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
             .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
-            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
+            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY h:mm a")}</td>`) //Formats date/time
             .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
             .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
         $("#events").append(newTR);
