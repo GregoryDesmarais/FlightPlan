@@ -2,6 +2,7 @@ var pageNo = 1;
 var pageCount;
 var events = [];
 
+
 //Dynamically add filter categories to Filter Dropdown.
 $("#filter").empty();
 for (x in categories) {
@@ -27,9 +28,6 @@ $("#filter").on("change", function () {
 
 // api call function 
 function eventbriteAPI(destination, startDate, endDate) {
-    if (destination) {
-        console.log(destination);
-    };
     startDate = moment(startDate).format("YYYY-MM-DDThh:mm:ss");
     endDate = moment(endDate).format("YYYY-MM-DDThh:mm:ss");
 
@@ -43,14 +41,14 @@ function eventbriteAPI(destination, startDate, endDate) {
             request.setRequestHeader("Authorization", "Bearer QPEWGCGG3AMHB3TDR5S2");
         },
     }).then(function (response) {
+
         if(response.events.length === 0)
         {
-            alert("There are no more events");
+            alert("There are no more events"); //remove this
         }
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
         }
-        console.log(events.length);
         buildTable(events);
         events = [];
     });
@@ -73,9 +71,7 @@ function buildTable(events){
 
 $("#moreEvents").click(function()
 {
-    console.log(pageNo);
     pageNo++;
-    console.log(pageNo);
     var location = $("#destination-input").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
@@ -85,7 +81,6 @@ $("#moreEvents").click(function()
 
 function skyscannerAPI(from, to, date){
     var date1 = moment(date).format("YYYY-MM-DD");
-    console.log(date1);
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -98,9 +93,8 @@ function skyscannerAPI(from, to, date){
     }
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
         for (i = 0; i < response.Carriers.length; i++) {
-            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {             
+            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
                 var row2 = `
                 <tr>
                 <td>${from}</td>
@@ -116,8 +110,6 @@ function skyscannerAPI(from, to, date){
 
 }
 
-// eventbriteAPI("Charlotte", "2019-09-02", "2019-09-03");
-
 $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
@@ -129,6 +121,7 @@ $(document).ready(function () {
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
         console.log(`${destination} ${startDate} ${endDate}`);
+        $(".flight").empty();
       
         if (origin === "" || destination === "" || startDate === "" || endDate === "") {
             $('#modalEmpty').modal('open');
@@ -140,9 +133,10 @@ $(document).ready(function () {
             return false;
         }; 
 
+       
         eventbriteAPI(destination, startDate, endDate);
-        skyscannerAPI(origin, destination, startDate);
-        skyscannerAPI(destination, origin, endDate);
+        skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate);
+        skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);
     });
 
 
