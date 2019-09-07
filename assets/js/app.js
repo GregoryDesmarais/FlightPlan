@@ -112,13 +112,11 @@ $(document).ready(function () {
         console.log(`${destination} ${startDate} ${endDate}`);
 
         if (origin === "" || destination === "" || startDate === "" || endDate === "") {
-            $('#modalEmpty').modal();
             $('#modalEmpty').modal('open');
             return false;
         }
 
         if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
-            $('#modalDate').modal();
             $('#modalDate').modal('open');
             return false;
         }; 
