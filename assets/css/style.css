@@ -28,6 +28,10 @@ input:focus::placeholder{
 
 .page-footer {
     padding: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
 }
 
 .ftext {
@@ -36,6 +40,12 @@ input:focus::placeholder{
 }
 .eventHeading{
     font-weight: bold;
+}
+#moreEvents{
+    margin-bottom: 50px;
+}
+.linked{
+    margin-left: 200px;
 }
 /* #events > tr > td:first, #events > tr > th:first  {
     max-width: 200px;

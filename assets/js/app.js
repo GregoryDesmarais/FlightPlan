@@ -83,8 +83,8 @@ $("#moreEvents").click(function () {
 //Flight API function that will take locations and departure date as input.
 function skyscannerAPI(from, to, date) {
     $(".loadingBar1").show();
-    var date1 = moment(date).format("YYYY-MM-DD");
-    var dateFormat = moment(date).format("MMM DD, YYYY");
+    var date1 = moment(date).format("YYYY-MM-DD");         //change date format to be used in flight API
+    var dateFormat = moment(date).format("MMM DD, YYYY"); //change Date format to display on webpage
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -108,8 +108,8 @@ function skyscannerAPI(from, to, date) {
                 <td>${"$" + response.Quotes[0].MinPrice}</td>
                 </tr>
                 `
-                $(".flight").append(row2);
-                $(".loadingBar1").hide();
+                $(".flight").append(row2); //appends flight available to the table.
+                $(".loadingBar1").hide(); //hides the loading bar after search complete
             }
         }
     });
