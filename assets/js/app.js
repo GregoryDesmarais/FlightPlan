@@ -97,9 +97,24 @@ function skyscannerAPI(from, to, date) {
     }
 
     $.ajax(settings).done(function (response) {
-        for (i = 0; i < response.Carriers.length; i++) {
-            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
-                var row2 = `
+        console.log(response);
+        if (response.Quotes.length === 0) {
+            var row2 = `
+            <tr>
+            <td>${"No Flights Available From " + from + " To " + to}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            `
+            $(".flight").append(row2);
+            $(".loadingBar1").hide();
+        }
+        else {
+            for (i = 0; i < response.Carriers.length; i++) {
+                if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
+                    var row2 = `
                 <tr>
                 <td>${from}</td>
                 <td>${to}</td>
@@ -108,8 +123,11 @@ function skyscannerAPI(from, to, date) {
                 <td>${"$" + response.Quotes[0].MinPrice}</td>
                 </tr>
                 `
-                $(".flight").append(row2); //appends flight available to the table.
-                $(".loadingBar1").hide(); //hides the loading bar after search complete
+                    $(".flight").append(row2); //appends flight available to the table.
+                    $(".loadingBar1").hide(); //hides the loading bar after search complete
+
+                }
+
             }
         }
     });
