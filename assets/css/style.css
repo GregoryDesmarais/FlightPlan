@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     font-family: 'Rubik', sans-serif;
     /* font-family: 'Noto Sans SC', sans-serif; */
+    padding-bottom: 3em;
 }
 
 main {
@@ -19,8 +20,8 @@ input::placeholder {
     color: black;
 }
 
-input:focus::placeholder{
-    color:transparent;
+input:focus::placeholder {
+    color: transparent;
 }
 
 .modal {
@@ -39,13 +40,16 @@ input:focus::placeholder{
     font-weight: bold;
     font-size: 1.2rem;
 }
-.eventHeading{
+
+.eventHeading {
     font-weight: bold;
 }
-#moreEvents{
+
+#moreEvents {
     margin-bottom: 50px;
 }
-.linked{
+
+.linked {
     margin-left: 200px;
 }
 #heading{
@@ -65,6 +69,7 @@ input:focus::placeholder{
 /* #events > tr > td:first, #events > tr > th:first  {
     max-width: 200px;
 } */
+
 
 /* table{
     table-layout: fixed;
