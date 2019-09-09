@@ -49,15 +49,14 @@ input:focus::placeholder {
     margin-bottom: 50px;
 }
 
-.linked {
-    margin-left: 200px;
-}
 #heading{
     position: relative;
 }
+
 #heading h1, #heading h5{
     position: relative;
 }
+
 #heading img{
     position: absolute;
     opacity: 0.5;
