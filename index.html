@@ -22,7 +22,7 @@
                     <h1>
                         Flightplan
                     </h1>
-                    <h5>Search, see available flights, see what you can do!</h5>
+                    <h5>Search cheapest flights, and see what you can do on your trip!</h5>
                     <img src="assets/images/plane.gif" alt="Plane gif">
                 </div>
             </div>
@@ -34,14 +34,14 @@
                     <div class="input-field col s12">
                         <i class="material-icons prefix">map</i>
                         <input type="text" id="origin-input" class="autocomplete" required minlength="2"
-                            placeholder="Origin">
+                            placeholder="Origin - US Cities Only">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">map</i>
                         <input type="text" id="destination-input" class="autocomplete" required minlength="2"
-                            placeholder="Destination">
+                            placeholder="Destination - US Cities Only">
                     </div>
                 </div>
                 <div class="row">
@@ -67,7 +67,7 @@
         <div class="row">
             <h4>Flights</h4>
             <div class="col s12 z-depth-2">
-                <table class="highlight responsive-table">
+                <table class="highlight responsive-table" id="flight-table">
                     <thead>
                         <tr>
                             <th>From</th>
@@ -167,7 +167,8 @@
             <p>Check the spelling and formation for your city name for the Origin and Destination fields.</p>
             <p class="modalConentSecondLine">City name should include valid US city only. Do not include state or
                 country.</p>
-            <p class="modalConentSecondLine">For Augusta ME use "Augusta (Maine)", and for Charleston WV use "Charleston WV".</p>
+            <p class="modalConentSecondLine">For Augusta ME use "Augusta (Maine)", and for Charleston WV use "Charleston
+                WV".</p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn modalAccept">Accept</a>
@@ -177,7 +178,7 @@
     <footer class="page-footer teal lighten-2">
         <div class="footer-copyright">
             <div class="container">
-                © 2019 Copyright Text
+                2019
                 <span class="linked">
                     <a class="grey-text text-lighten-4 center-align" href="#goToFlights">Go to Flight Search</a> |
                     <a class="grey-text text-lighten-4 center-align" href="#goToEvents">Go to Event Search</a>
