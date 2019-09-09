@@ -158,6 +158,12 @@ $(document).ready(function () {
             return false;
         };
 
+        if (!cityToAirport[origin] || !cityToAirport[destination]) {
+            $("#modalCity").modal('open');
+            $(".modalAccept").focus();
+            return false;
+        };
+
         $(".loadingBar").show();
         eventbriteAPI(destination, startDate, endDate);
         $("#moreEvents").show();
