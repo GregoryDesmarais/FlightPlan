@@ -69,3 +69,7 @@ input:focus::placeholder {
 .modalConentSecondLine {
     margin-top: 20px;
 }
+
+.row-footer {
+    margin-bottom: 0px;
+}
