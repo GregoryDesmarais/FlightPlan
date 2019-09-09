@@ -130,6 +130,8 @@ function skyscannerAPI(from, to, date) {
 
             }
         }
+    }).then(function(){
+        $("#flight-table").trigger("update"); // sort table by flight departure date
     });
 
 }
@@ -192,4 +194,5 @@ $(document).ready(function () {
     });
 
     $("#events").parent().tablesorter();
+    $("#flight-table").tablesorter({ sortList: [[3, 0]] }); // allows the flights to be sorted by departure date.
 });
