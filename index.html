@@ -18,16 +18,17 @@
 
         <div class="row ">
             <div class="col s12" id="jumbotron">
-                <div class="card-panel center-align teal lighten-3">
+                <div class="card-panel center-align lighten-3" id="heading">
                     <h1>
                         Flightplan
                     </h1>
-                    <h5>Search, see available flights, see what you can do</h5>
+                    <h5>Search, see available flights, see what you can do!</h5>
+                    <img src="assets/images/plane.gif" alt="Plane gif">
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="goToFlights">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
@@ -70,6 +71,7 @@
                     <thead>
                         <tr>
                             <th>From</th>
+                            <th>To</th>
                             <th>Company</th>
                             <th>Departure Date</th>
                             <th>Price ($)</th>
@@ -77,44 +79,55 @@
                     </thead>
 
                     <tbody class="flight">
-                        
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="progress loadingBar1">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row eventTable">
+            <h4 id="goToEvents">Events</h4>
+            <div class="input-field col s12">
+                <select multiple id='filter'>
+                </select>
+                <label>Event Category Filter</label>
+            </div>
+            <div class="col s12 z-depth-2">
+                <table class="highlight responsive-table">
+                    <thead>
+                        <tr class="eventHeading">
+                            <td>Event Name</td>
+                            <td>Category</td>
+                            <td>Date/Time</td>
+                            <td>Price ($)</td>
+                            <td>More Info</td>
+                        </tr>
+                    </thead>
+                    <tbody id="events">
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="row">
-            <h4>Events</h4>
-            <div class="input-field col s12">
-                <select multiple id='filter'>
-                </select>
-                <label>Materialize Multiple Select</label>
+            <div class="col s12">
+                <div class="progress loadingBar">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
-            <div class="col s12 z-depth-4">
-                <table class="highlight responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Event Name</th>
-                            <!-- <th>Event Description</th> -->
-                            <th>Category</th>
-                            <th>Date/Time</th>
-                            <th>Price ($)</th>
-                            <th>More Info</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="events">
-                        <tr>
-                            <td></td>
-                            <td class='info'>Loading, please wait...</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="btn waves-effect waves-light" name="action" id="moreEvents">Check for more events
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light z-depth-2" name="action" id="moreEvents">Check
+                for more events
+                <i class="material-icons right">send</i>
+            </button>
         </div>
     </div>
 
@@ -124,7 +137,7 @@
             <p>Please ensure you have entered all required information and have not left anything blank.</p>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn">Accept</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn modalAccept">Accept</a>
         </div>
     </div>
 
@@ -134,21 +147,57 @@
             <p>Please enter a valid date format for Start and End Date.</p>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn">Accept</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn modalAccept">Accept</a>
+        </div>
+    </div>
+
+    <div id="modalEvents" class="modal z-depth-3">
+        <div class="modal-content">
+            <h4>No More Events</h4>
+            <p>There are no more events for this location and dates.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn modalAccept">Accept</a>
+        </div>
+    </div>
+
+    <div id="modalCity" class="modal z-depth-3">
+        <div class="modal-content">
+            <h4>Invalid City Format</h4>
+            <p>Check the spelling and formation for your city name for the Origin and Destination fields.</p>
+            <p class="modalConentSecondLine">City name should include valid US city only. Do not include state or
+                country.</p>
+            <p class="modalConentSecondLine">For Augusta ME use "Augusta (Maine)", and for Charleston WV use "Charleston
+                WV".</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn modalAccept">Accept</a>
         </div>
     </div>
 
     <footer class="page-footer teal lighten-2">
         <div class="footer-copyright">
             <div class="container">
-                © 2019 Copyright Text
-                <a class="grey-text text-lighten-4 right ftext" href="#!">Flightplan</a>
+                <div class="row">
+                    <div class="col s3">
+                        2019
+                    </div>
+                    <div class="col s6">
+                        <a class="grey-text text-lighten-4 center-align" href="#goToFlights">Go to Flight Search</a>
+                        |
+                        <a class="grey-text text-lighten-4 center-align" href="#goToEvents">Go to Event Search</a>
+                    </div>
+                    <div class="col s3">
+                        <a class="grey-text text-lighten-4 right ftext" href="#!">Flightplan</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
     <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha256-uC1JMW5e1U5D28+mXFxzTz4SSMCywqhxQIodqLECnfU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"
+        integrity="sha256-uC1JMW5e1U5D28+mXFxzTz4SSMCywqhxQIodqLECnfU=" crossorigin="anonymous"></script>
     <script src="assets/js/moment.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/app.js"></script>

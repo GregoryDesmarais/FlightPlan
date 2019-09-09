@@ -42,9 +42,9 @@ function eventbriteAPI(destination, startDate, endDate) {
         },
     }).then(function (response) {
 
-        if(response.events.length === 0)
-        {
-            alert("There are no more events"); //remove this
+        if (response.events.length === 0) {
+            $('#modalEvents').modal('open');
+            $("#moreEvents").hide();
         }
         for (i = 0; i < response.events.length; i++) {
             events.push(response.events[i]);
@@ -54,23 +54,24 @@ function eventbriteAPI(destination, startDate, endDate) {
     });
 }
 
-function buildTable(events){
+function buildTable(events) {
     for (x in events) { //For each element in events array.
         var data = events[x]; //Set data to current element interval.
         var newTR = $(`<tr data-category='${data.category_id}'>`);
         newTR.append(`<td>${data.name.text}</td>`)
-            // .append(`<td>${data.summary}</td>`) //Event Summary, Shorter than the description
             .append(`<td >${(data.category_id === null) ? 'None' : categories[data.category_id]}`)
-            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY<br>h:mm a")}</td>`) //Formats date/time
+            .append(`<td>${moment(data.start.local).format("MM/DD/YYYY h:mm a")}</td>`) //Formats date/time
             .append(`<td>${data.is_free ? 'Free!' : 'Not Free!'}</td>`) //Terniary operator, outputs based on is_free boolean.
             .append(`<td><a href='${data.url}' target="_blank">More Info</a>`); //URL to the eventbrite page.
         $("#events").append(newTR);
     }
+    $("#filter").trigger("change");
     $("#events").parent().trigger("update");
+    $(".loadingBar").hide();
 }
 
-$("#moreEvents").click(function()
-{
+$("#moreEvents").click(function () {
+    $(".loadingBar").show();
     pageNo++;
     var location = $("#destination-input").val().trim();
     var startDate = $("#start-date").val().trim();
@@ -79,8 +80,11 @@ $("#moreEvents").click(function()
 
 })
 
-function skyscannerAPI(from, to, date){
-    var date1 = moment(date).format("YYYY-MM-DD");
+//Flight API function that will take locations and departure date as input.
+function skyscannerAPI(from, to, date) {
+    $(".loadingBar1").show();
+    var date1 = moment(date).format("YYYY-MM-DD");         //change date format to be used in flight API
+    var dateFormat = moment(date).format("MMM DD, YYYY"); //change Date format to display on webpage
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -93,19 +97,41 @@ function skyscannerAPI(from, to, date){
     }
 
     $.ajax(settings).done(function (response) {
-        for (i = 0; i < response.Carriers.length; i++) {
-            if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
-                var row2 = `
+        console.log(response);
+        if (response.Quotes.length === 0) {
+            var row2 = `
+            <tr>
+            <td>${"No Flights Available From " + from + " To " + to}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            `
+            $(".flight").append(row2);
+            $(".loadingBar1").hide();
+        }
+        else {
+            for (i = 0; i < response.Carriers.length; i++) {
+                if (response.Quotes[0].OutboundLeg.CarrierIds[0] == response.Carriers[i].CarrierId) {
+                    var row2 = `
                 <tr>
                 <td>${from}</td>
+                <td>${to}</td>
                 <td>${response.Carriers[i].Name}</td>
-                <td>${date}</td>
-                <td>${response.Quotes[0].MinPrice}</td>
+                <td>${dateFormat}</td>
+                <td>${"$" + response.Quotes[0].MinPrice}</td>
                 </tr>
                 `
-                $(".flight").append(row2);
+                    $(".flight").append(row2); //appends flight available to the table.
+                    $(".loadingBar1").hide(); //hides the loading bar after search complete
+
+                }
+
             }
         }
+    }).then(function(){
+        $("#flight-table").trigger("update"); // sort table by flight departure date
     });
 
 }
@@ -120,124 +146,53 @@ $(document).ready(function () {
         var origin = $("#origin-input").val().trim();
         var startDate = $("#start-date").val().trim();
         var endDate = $("#end-date").val().trim();
-        console.log(`${destination} ${startDate} ${endDate}`);
         $(".flight").empty();
-      
+
         if (origin === "" || destination === "" || startDate === "" || endDate === "") {
             $('#modalEmpty').modal('open');
+            $(".modalAccept").focus();
             return false;
         }
 
         if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
             $('#modalDate').modal('open');
+            $(".modalAccept").focus();
             return false;
-        }; 
+        };
 
-       
+        if (!cityToAirport[origin] || !cityToAirport[destination]) {
+            $("#modalCity").modal('open');
+            $(".modalAccept").focus();
+            return false;
+        };
+
+        $(".loadingBar").show();
         eventbriteAPI(destination, startDate, endDate);
-        skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate);
-        skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);
+        $("#moreEvents").show();
+        skyscannerAPI(cityToAirport[origin], cityToAirport[destination], startDate); //calling flight API for orgin to destination flight.
+        skyscannerAPI(cityToAirport[destination], cityToAirport[origin], endDate);   //calling flight API for return flight from destination to origin.
     });
-
 
 });
 
 $(document).ready(function () {
+
+    $(".loadingBar").hide();
+    $(".loadingBar1").hide();
+    $("#moreEvents").hide();
     $('select').formSelect();
     $('.datepicker').datepicker();
     $('.modal').modal();
     $('input.autocomplete').autocomplete({
-        data: {
-            "New York": null,
-            "Cairo": null,
-            "Tokyo": null,
-            "Osaka": 'https://placehold.it/250x250',
-            "Delhi": null,
-            "Shanghai": null,
-            "Mexico City": null,
-            "Bejing": null,
-            "Istanbul": null,
-            "Moscow": null,
-            "Seoul": null,
-            "London": null,
-            "Bangalore": null,
-            "Hong Kong": null,
-            "Hyderabad": null,
-            "Singapore": null,
-            "Log Angeles": null,
-            "Berlin": null,
-            "Paris": null,
-            "Rome": null,
-            "Venice": null,
-            "Amsterdam": null,
-            "copenhagen": null,
-            "Stockholm": null,
-            "Oslo": null,
-            "Barcelona": null,
-            "Madrid": null,
-            "Lisbon": null,
-            "Prague": null,
-            "Vienna": null,
-            "Munich": null,
-            "Bangkok": null,
-            "Sydney": null,
-            "Melbourne": null,
-            "Auckland": null,
-            "Cologne": null,
-            "Ho Chi Minh City": null,
-            "Taipei": null,
-            "Dubai": null,
-            "Port Elizabeth": null,
-            "Rio De Janeiro": null,
-            "Sao Paulo": null,
-            "Toronto": null,
-            "Montreal": null,
-            "Vancouver": null,
-            "Seattle": null,
-            "Portland": null,
-            "San Francisco": null,
-            "San Diego": null,
-            "Pheonix": null,
-            "Las Vegas": null,
-            "Denver": null,
-            "Salt Lake City": null,
-            "Albuquerque": null,
-            "El Paso": null,
-            "Dallas": null,
-            "Oklahoma City": null,
-            "Austin": null,
-            "San Antonio": null,
-            "Houston": null,
-            "Memphis": null,
-            "Kansas City": null,
-            "St. Louis": null,
-            "Nashville": null,
-            "New Orleans": null,
-            "Orlando": null,
-            "Tampa": null,
-            "Miami": null,
-            "Charlotte": null,
-            "Raleigh": null,
-            "Atlanta": null,
-            "Louisville": null,
-            "Chicago": null,
-            "Cincinnati": null,
-            "Columbus": null,
-            "Cleveland": null,
-            "Detroit": null,
-            "Pittsburgh": null,
-            "Washington": null,
-            "Philadelphia": null,
-            "Richmond": null,
-            "Boston": null,
-            "Minneapolis": null,
-            "Sacramento": null,
-            "Tuscon": null,
-            "Winnipeg": null,
-            "Fort Worth": null,
-
-        },
+        data: function () {
+            var autoComplete = {};
+            for (x in cityToAirport) {
+                autoComplete[x] = null;
+            }
+            return autoComplete;
+        }()
     });
 
-$("#events").parent().tablesorter();
+    $("#events").parent().tablesorter();
+    $("#flight-table").tablesorter({ sortList: [[3, 0]] }); // allows the flights to be sorted by departure date.
 });
