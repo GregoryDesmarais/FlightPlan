@@ -66,7 +66,7 @@ function buildTable(events) {
         $("#events").append(newTR);
     }
     $("#filter").trigger("change");
-    $("#events").parent().trigger("update");
+    $("#eventsTable").trigger("update");
     $(".loadingBar").hide();
 }
 
@@ -193,6 +193,6 @@ $(document).ready(function () {
         }()
     });
 
-    $("#events").parent().tablesorter();
+    $("#eventsTable").tablesorter();
     $("#flight-table").tablesorter({ sortList: [[3, 0]] }); // allows the flights to be sorted by departure date.
 });
