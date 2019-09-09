@@ -67,7 +67,7 @@
         <div class="row">
             <h4>Flights</h4>
             <div class="col s12 z-depth-2">
-                <table class="highlight responsive-table">
+                <table class="highlight responsive-table" id="flight-table">
                     <thead>
                         <tr>
                             <th>From</th>
@@ -100,7 +100,7 @@
                 <label>Event Category Filter</label>
             </div>
             <div class="col s12 z-depth-2">
-                <table class="highlight responsive-table">
+                <table class="highlight responsive-table" id="eventsTable">
                     <thead>
                         <tr class="eventHeading">
                             <td>Event Name</td>
@@ -182,9 +182,10 @@
                     <div class="col s3">
                         2019
                     </div>
-                    <div class="col s6">
+                    <div class="col s3">
                         <a class="grey-text text-lighten-4 center-align" href="#goToFlights">Go to Flight Search</a>
-                        |
+                    </div>
+                    <div class="col s3">
                         <a class="grey-text text-lighten-4 center-align" href="#goToEvents">Go to Event Search</a>
                     </div>
                     <div class="col s3">
